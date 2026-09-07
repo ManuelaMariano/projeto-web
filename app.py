@@ -58,20 +58,24 @@ def trabalho():
     return f'<h1>Adicionando texto de var: {palavra} <h1>'
 
 
-@app.route('/calcular/<nome>/int:ano>')
+@app.route('/calcular/<nome>/<int:ano>')
 def calcular(nome, ano):
     ano_atual = datetime.now().year
     idade = ano_atual - ano
 
-    if idade > 18:
-        status= 'Maior de Idade'
-
-    #--- Fazer para quem tem igual 18 anos ---
-    
+    if idade >= 18:
+        status = 'Maior de Idade'
     else:
         status = 'Menor de Idade - Acesso Negado'
 
-    return render_template ('variaveis.html', nome_usuario = nome, ano_atual = ano_atual, nascimento = ano, idade = idade, status =  status)
+    return render_template(
+        'variaveis.html',
+        nome_usuario=nome,
+        ano_atual=ano_atual,
+        nascimento=ano,
+        idade=idade,
+        status=status
+    )
 
 
 
