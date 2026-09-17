@@ -102,40 +102,6 @@ def condicao(numero):
 
 
 
-@app.route('/perfil/<nome>')
-def perfil(nome):
-    # Simulando um banco de dados com um dicionário de usuários
-    # Na Aula 05 isso virá do MySQL de verdade
-    usuarios = {
-        'admin': {
-            'nome': 'Administrador',
-            'email': 'admin@fatec.br',
-            'nivel': 'administrador',
-            'ativo': True,
-            'posts': 47
-        },
-        'joao': {
-            'nome': 'João Silva',
-            'email': 'joao@email.com',
-            'nivel': 'usuario',
-            'ativo': True,
-            'posts': 12
-        },
-        'maria': {
-            'nome': 'Maria Souza',
-            'email': 'maria@email.com',
-            'nivel': 'moderador',
-            'ativo': False,
-            'posts': 31
-        }
-    }
-
-    # Busca o usuário pelo nome na URL — .get() retorna None se não existir
-    usuario = usuarios.get(nome)
-
-    # Passa o usuário (ou None) para o template
-    return render_template('perfil.html', usuario=usuario, nome_buscado=nome)
-
 
 
 
