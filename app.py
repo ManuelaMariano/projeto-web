@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from datetime import datetime 
 
 
@@ -74,9 +74,7 @@ def calcular(nome, ano):
         ano_atual = ano_atual,
         nascimento = ano,
         idade = idade,
-        status = status
-        
-    )
+        status = status )
 
 
 
@@ -98,9 +96,34 @@ def condicao(numero):
     return render_template ('condicao.html', numero = numero)
 
 
+@app.route('/formulario', methods=['GET', 'POST'])
+def formulario():
+
+    if request.method == "POST":
+        nome = request.form.get('nome','Nada enviado')
+        num1 = int(request.form['numero1'])
+        num2 = float(request.form['numero2'])
+
+        soma = num1 + num2
+        sub = num1 - num2
+        mult = num1 * num2
+        div = num1 / num2
+
+        return redirect(url_for('exibir_resultado',nome=nome,soma=soma,sub=sub,mult=mult,div=div))
+
+    return render_template('formulario.html')
 
 
+@app.route('/exibir')
+def exibir_resultado():
+    nome = request.args.get('nome')
+    soma = request.args.get('soma')
+    sub = request.args.get('sub')
+    mult = request.args.get('mult')
+    div = request.args.get('div')
 
+    return render_template(
+        'exibir.html',nome=nome,soma=soma,sub=sub,mult=mult,div=div)
 
 
 
